@@ -1,12 +1,12 @@
 # Journal App
 
-## React Journal Aplication
+## React Journal Application
 
 ## Install yarn
 ```
 yarn
 ```
-## Install react router
+## Install React Router
 ```
 yarn add react-router-dom
 ```
