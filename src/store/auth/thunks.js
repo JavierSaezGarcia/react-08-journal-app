@@ -1,7 +1,7 @@
 // Los thunks son acciones que internamente tienen una tarea asincrona y que se ejecutan en paralelo.
 // Si son sincronas se harian en los reducers
 
-import { signInWithGoogle } from "../../firebase/providers";
+import { registerUserWithEmailPassword, signInWithGoogle } from "../../firebase/providers";
 import { checkingCredentials, login, logout } from "./authSlice"
 
 export const checkingAuthentication = (email, password) => {
@@ -21,3 +21,19 @@ export const startGoogleSignIn = () => {
     }        
 
 }
+
+export const startCreatingUserWithEmailPassword = ({ email, password, displayName }) => {
+
+    return async(dispatch) => {
+        dispatch(checkingCredentials());
+
+        const { ok, uid, photoURL, errorMessage} = await registerUserWithEmailPassword({ email, password, displayName });
+
+        if(!ok) return dispatch(logout({ errorMessage }));
+
+        dispatch( login({ uid, displayName, email, photoURL }) );
+        
+    }
+    
+}  
+   
