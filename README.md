@@ -19,3 +19,8 @@ yarn add @fontsource/roboto
 yarn add @mui/icons-material
 ```
 
+## Redux Devtools, Thunks
+
+## Google Sign in 
+
+## Firebase, Firestore
