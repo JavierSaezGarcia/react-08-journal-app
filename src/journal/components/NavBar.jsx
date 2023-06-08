@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { startLogout } from "../../store/auth/thunks";
 
 
-export const NavBar = ({ drawerWidth = 250 }) => {
+export const NavBar = ({ drawerWidth = 260 }) => {
 
     const dispatch = useDispatch();
     const onLogout = () => {
@@ -26,8 +26,8 @@ export const NavBar = ({ drawerWidth = 250 }) => {
                     sx={{ mr: 2, display: { sm: 'none' } }}>
                     <MenuOutlined />
                 </IconButton>
-                <Grid container direction="row" justifyContent="space-between" alignItems="center">
-                    <Typography variant='h6' noWrap component='div'>
+                <Grid container direction="row" justifyContent="space-between" alignItems="left">
+                    <Typography variant='h5' noWrap component='div' sx={{ ml: 3 }}>
                         JournalApp
                     </Typography>
                     <IconButton 
