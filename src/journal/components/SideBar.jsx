@@ -1,8 +1,17 @@
 import {  TurnedInNot } from "@mui/icons-material";
 import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material";
+import { useSelector } from 'react-redux';
 
 
-export const SideBar = ({drawerWidth = 240 }) => {
+export const SideBar = ({ drawerWidth = 240 }) => {
+
+  // poner el nombre del usuario en el drawer
+  
+  const {displayName} = useSelector( state => state.auth)
+
+
+  
+  
   return (
     <Box component='nav'
       sx={{
@@ -22,7 +31,9 @@ export const SideBar = ({drawerWidth = 240 }) => {
   
         <Toolbar>
           <Typography variant='h6' noWrap component='div'>
-            Javier Sáez
+            {
+              displayName
+            }
           </Typography>
         </Toolbar>
         <Divider />
@@ -36,7 +47,7 @@ export const SideBar = ({drawerWidth = 240 }) => {
                   </ListItemIcon>
                   <Grid container>
                     <ListItemText primary={text} />
-                    <ListItemText secondary={'Lorem ipsum dolor sit amet consectetur adipisicing elit.'} />
+                    <ListItemText secondary={'Lorem ipsum '} />
                   </Grid>
                   </ListItemButton>
               </ListItem>

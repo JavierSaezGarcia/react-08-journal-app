@@ -1,7 +1,7 @@
-import { Button, Grid, TextField, Typography } from "@mui/material"
-import { DateNow } from "../../helpers/DateNow"
-import { SaveOutlined } from "@mui/icons-material"
-import { ImageGallery } from "../components"
+import { Button, Grid, TextField, Typography } from "@mui/material";
+import { DateNow } from "../../helpers/DateNow";
+import { SaveOutlined } from "@mui/icons-material";
+import { ImageGallery } from "../components";
 
 
 
