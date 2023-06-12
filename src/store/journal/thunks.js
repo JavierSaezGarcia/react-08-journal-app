@@ -1,8 +1,10 @@
 // Importamos de firebase firestore
-import { collection, doc, setDoc } from 'firebase/firestore/lite';
+import { collection, doc, setDoc, deleteDoc} from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
-import { addNewEmptyNote, setActiveNote, savingNewNote, setNotes, setSaving, updateNote } from './';
+import { addNewEmptyNote, setActiveNote, savingNewNote, setNotes, setSaving, updateNote, setPhotosToActiveNote, deleteNoteById } from './';
 import { loadNotes } from '../../helpers/loadNotes';
+import { fileUpload } from '../../helpers';
+
 
 
 export const startNewNote = () => {
@@ -77,7 +79,50 @@ export const startSaveNote = () => {
 
     }
 
+}
 
+export const startUploadingFiles = ( files = [] ) => {
+    return async (dispatch) => {
 
+        dispatch( setSaving());
+
+        // console.log(files);
+
+        // await hacer algo... 
+        // await fileUpload( files[0] );  // pero las subiría de una en una, no es lo que queremos
+
+        // para subir varias, podriamos hacer un foreach, pero las subiria de una en una y queremos que las suba de golpe
+        // Para ello hacemos un array de promesas y las ejecutamos con Promise.all que cuando todas las promesas( peticiones ) se hayan completado, ejecuta la llamada Promise.all()
+        const fileUploadPromises = [];
+         // Llenamos el array
+        for (const file of files) {
+            fileUploadPromises.push( fileUpload( file ) );
+        }
+        
+        // enviamos el arreglo de promesas
+        const photosUrls = await Promise.all( fileUploadPromises );
+        console.log([photosUrls]);
+
+        // console.log(photosUrls);
+        dispatch( setPhotosToActiveNote( photosUrls ) );       
+
+    }
+}
+
+export const startDeletingNote = () => {
+    return async (dispatch, getState) => {
+
+        const { uid } = getState().auth;
+        const { active:note } = getState().journal;
+        // console.log({uid, note});       
+
+        const docRef = doc( FirebaseDB, `${ uid }/journal/notes/${ note.id }` );
+
+        await deleteDoc( docRef );
+        
+        dispatch( deleteNoteById(note.id))
+
+    }
 
 }
+

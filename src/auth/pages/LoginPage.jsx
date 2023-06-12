@@ -19,8 +19,7 @@ import { startLoginWithEmailPassword, startGoogleSignIn } from '../../store/auth
 const formData = {
   // creamos un hook para el formulario
     email: '',
-    password: ''
-  
+    password: ''  
 }
 
 export const LoginPage = () => {
