@@ -1,9 +1,11 @@
 // Importamos de firebase firestore
-import { collection, doc, setDoc, deleteDoc} from 'firebase/firestore/lite';
+import { collection, doc, setDoc, deleteDoc, getDoc} from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
 import { addNewEmptyNote, setActiveNote, savingNewNote, setNotes, setSaving, updateNote, setPhotosToActiveNote, deleteNoteById } from './';
 import { loadNotes } from '../../helpers/loadNotes';
 import { fileUpload } from '../../helpers';
+
+
 
 
 
@@ -118,8 +120,20 @@ export const startDeletingNote = () => {
 
         const docRef = doc( FirebaseDB, `${ uid }/journal/notes/${ note.id }` );
 
-        await deleteDoc( docRef );
+        // Obtener el documento desde Firebase
+        const docSnapshot = await getDoc(docRef);
+
+        // Obtener los datos del documento
+        const noteData = docSnapshot.data();
+
+        // Obtener las URLs de las imágenes desde los datos de la nota
+        const imageUrls = noteData.imageUrls;
+        // TODO buscar la forma de con el array de urls de cada nota se puedan borrar de cloudinary  a la vez que se borra la nota
+        console.log(imageUrls);
+      
         
+        await deleteDoc( docRef );
+
         dispatch( deleteNoteById(note.id))
 
     }
