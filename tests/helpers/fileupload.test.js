@@ -24,11 +24,11 @@ describe('Test in fileUpload.js', () => {
         const file = new File([blob], 'test-image.jpg');
 
         const url = await fileUpload(file);
-        console.log(url);
+        // console.log(url);
 
         const segments = url.split('/');
         const imageId = segments[segments.length - 1].replace('.jpg', '');
-        console.log(imageId);
+        // console.log(imageId);
 
         expect(typeof url).toBe('string');
         expect(url.length > 0).toBe(true);
@@ -37,7 +37,7 @@ describe('Test in fileUpload.js', () => {
         const cloudResp = await cloudinary.api.delete_resources(['journal-app/' + imageId], {
             resource_type: 'image'
         });
-        console.log(cloudResp);
+        // console.log(cloudResp);
 
     
     });

@@ -6,8 +6,7 @@ import { loadNotes } from '../../helpers/loadNotes';
 import { fileUpload } from '../../helpers';
 
 
-
-
+//! **** RECORDEMOS QUE LOS THUNKS SON FUNCIONES SINCRONAS QUE RETORNAN OTRAS FUNCIONES ASINCRONAS  ****
 
 export const startNewNote = () => {
 
@@ -103,7 +102,7 @@ export const startUploadingFiles = ( files = [] ) => {
         
         // enviamos el arreglo de promesas
         const photosUrls = await Promise.all( fileUploadPromises );
-        console.log([photosUrls]);
+        // console.log([photosUrls]);
 
         // console.log(photosUrls);
         dispatch( setPhotosToActiveNote( photosUrls ) );       
@@ -129,8 +128,11 @@ export const startDeletingNote = () => {
         // Obtener las URLs de las imágenes desde los datos de la nota
         const imageUrls = noteData.imageUrls;
         // TODO buscar la forma de con el array de urls de cada nota se puedan borrar de cloudinary  a la vez que se borra la nota
-        console.log(imageUrls);
-      
+        //! No se puede ya que hay que hacer un sdk y montar un servidor Node para que funcione la funcionalidad de borrar de cloudinary
+        //! Por lo tanto, no podemos borrar de cloudinary a la vez que borramos la nota de la base de datos
+        
+        // console.log(imageUrls);
+       
         
         await deleteDoc( docRef );
 

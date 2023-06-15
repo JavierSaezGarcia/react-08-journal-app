@@ -26,7 +26,7 @@ describe('Testing AuthSlice.js', () => {
     test('should do logout without args', () => {
 
         const state1 = authSlice.reducer(initialState, login(demoUser));
-       
+
         expect(state1).toEqual({
             status: 'authenticated', // checking, not-authenticated, authenticated
             uid: demoUser.uid,
@@ -37,7 +37,7 @@ describe('Testing AuthSlice.js', () => {
         });
         const state2 = authSlice.reducer(state1, logout());
         // console.log(state2);
-        expect(state2.status).toBe('not-authenticated');      
+        expect(state2.status).toBe('not-authenticated');
 
     });
     test('should do logout and display error message', () => {
@@ -45,7 +45,7 @@ describe('Testing AuthSlice.js', () => {
         const errorMessage = 'Ceredenciales no son correctas';
 
         const state1 = authSlice.reducer(initialState, login(demoUser));
-       
+
         expect(state1).toEqual({
             status: 'authenticated', // checking, not-authenticated, authenticated
             uid: demoUser.uid,
@@ -54,17 +54,17 @@ describe('Testing AuthSlice.js', () => {
             photoURL: demoUser.photoURL,
             errorMessage: null,
         });
-        const state2 = authSlice.reducer(state1, logout({errorMessage}));
+        const state2 = authSlice.reducer(state1, logout({ errorMessage }));
         console.log(state2.errorMessage);
-       
+
         expect(state2.status).toBe('not-authenticated');
         expect(state2.errorMessage).toBe(errorMessage);
 
     });
 
-    test('should change status to checking', () => { 
-        const state = authSlice.reducer(authenticatedState, checkingCredentials() );        
-        expect(state.status).toBe('checking');     
+    test('should change status to checking', () => {
+        const state = authSlice.reducer(authenticatedState, checkingCredentials());
+        expect(state.status).toBe('checking');
     });
 
 });

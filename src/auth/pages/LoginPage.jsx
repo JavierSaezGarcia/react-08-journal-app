@@ -26,6 +26,7 @@ export const LoginPage = () => {
 const { status, errorMessage } = useSelector( state => state.auth );  
 
   const dispatch = useDispatch();
+
   const { email, password, onInputChange } = useForm(formData);
 
   const isAuthenticating = useMemo( () => status === 'checking', [status]);
@@ -38,14 +39,18 @@ const { status, errorMessage } = useSelector( state => state.auth );
   }
 
   const onGoogleSignIn = () => {
-    console.log('onGoogleSignIn');
+    // console.log('onGoogleSignIn');
     dispatch( startGoogleSignIn() );
   }
 
   return (
 
     <AuthLayout title="Login">
-      <form onSubmit={onSubmit} className='animate__animated animate__fadeIn animate__faster'>
+      
+      <form 
+        aria-label="submit-form"
+        onSubmit={onSubmit} 
+        className='animate__animated animate__fadeIn animate__faster'>
         <Grid container>
           <Grid item xs={12}>
             <TextField
@@ -66,6 +71,9 @@ const { status, errorMessage } = useSelector( state => state.auth );
               fullWidth
               password='password'
               name='password'
+              inputProps={{
+                'data-testid': 'password'
+              }}
               value={password}
               onChange={onInputChange}
 
@@ -95,6 +103,7 @@ const { status, errorMessage } = useSelector( state => state.auth );
               disabled={isAuthenticating}
               variant="contained"
               fullWidth
+              aria-label="google-btn"
               onClick={onGoogleSignIn}
             >
               <Google />
